@@ -32116,11 +32116,11 @@ async function postPRComment() {
         const token = (0, core_1.getInput)('repo-token') || process.env.INPUT_REPO_TOKEN;
         const prNumber = github_1.context.payload.pull_request?.number;
         if (!token) {
-            console.log('No GitHub token provided, skipping PR comment');
+            (0, core_1.info)('No GitHub token provided, skipping PR comment');
             return;
         }
         if (!prNumber) {
-            console.log('Not a pull request, skipping PR comment');
+            (0, core_1.info)('Not a pull request, skipping PR comment');
             return;
         }
         const manager = new pr_comment_manager_1.PRCommentManager({
@@ -32134,10 +32134,12 @@ async function postPRComment() {
         await manager.postComment(commentBody);
     }
     catch (err) {
-        console.error('Failed to post PR comment:', err);
+        (0, core_1.error)(`Failed to post PR comment: ${err}`);
     }
 }
+(0, core_1.startGroup)('Posting PR comment');
 postPRComment();
+(0, core_1.endGroup)();
 
 })();
 
