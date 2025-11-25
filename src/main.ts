@@ -59,6 +59,8 @@ for (let i = 0; i < fileContents.length - 1; i++) {
 }
 
 async function postPRComment() {
+	startGroup('Posting PR comment');
+
 	try {
 		const token = getInput('repo-token') || process.env.INPUT_REPO_TOKEN;
 		const prNumber = context.payload.pull_request?.number;
@@ -88,8 +90,8 @@ async function postPRComment() {
 	} catch (err) {
 		error(`Failed to post PR comment: ${err}`);
 	}
+
+	endGroup();
 }
 
-startGroup('Posting PR comment');
 postPRComment();
-endGroup();

@@ -32112,6 +32112,7 @@ for (let i = 0; i < fileContents.length - 1; i++) {
     }
 }
 async function postPRComment() {
+    (0, core_1.startGroup)('Posting PR comment');
     try {
         const token = (0, core_1.getInput)('repo-token') || process.env.INPUT_REPO_TOKEN;
         const prNumber = github_1.context.payload.pull_request?.number;
@@ -32136,10 +32137,9 @@ async function postPRComment() {
     catch (err) {
         (0, core_1.error)(`Failed to post PR comment: ${err}`);
     }
+    (0, core_1.endGroup)();
 }
-(0, core_1.startGroup)('Posting PR comment');
 postPRComment();
-(0, core_1.endGroup)();
 
 })();
 
